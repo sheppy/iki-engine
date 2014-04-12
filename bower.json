@@ -2,6 +2,14 @@
   "name": "iki-engine",
   "version": "0.0.1",
   "private": true,
+  "ignore": [
+    "test",
+    "_specHelper.coffee",
+    ".gitignore",
+    "coffeelint.json",
+    "Gruntfile.coffee",
+    "package.json"
+  ],
   "dependencies": {
     "node-uuid": "~1.4.1"
   }
