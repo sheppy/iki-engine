@@ -16,7 +16,7 @@
       ]
     },
     "travis-cov": {
-      "threshold": 0
+      "threshold": 80
     }
   },
   "author": "Chris Sheppard",
