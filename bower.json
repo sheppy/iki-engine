@@ -1,0 +1,8 @@
+{
+  "name": "iki-engine",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "node-uuid": "~1.4.1"
+  }
+}
