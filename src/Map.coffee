@@ -1,3 +1,5 @@
+Util = require "./Util.coffee"
+
 class Map
     constructor: ->
         @width = 0
@@ -7,9 +9,13 @@ class Map
         @layers = []
         @tileMaps = []
 
-    loadMap: ->
+    loadMap: (mapFile) ->
+        console.log "Map > loadMap", mapFile
+        map = Util.loadJSON mapFile
+        map.then @parseMap.bind @
 
     parseMap: (mapData) ->
+        console.log "Map > parseMap", mapData
         @width = mapData.width
         @height = mapData.height
         @tileWidth = mapData.tileWidth
@@ -17,6 +23,8 @@ class Map
 
         @parseLayer layer for layer in mapData.layers
         @parseTileSet tileSet for tileSet in mapData.tilesets
+
+        console.log @tileMaps, @layers
 
     parseLayer: (layerData) ->
         # Currently only deal with tile layers

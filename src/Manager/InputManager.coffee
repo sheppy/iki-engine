@@ -4,17 +4,21 @@ class InputManager
         y: 0
 
     @init: ->
-        document.addEventListener "click", InputManager.onMouseClick
-        document.addEventListener "mousemove", InputManager.onMouseMove
-#        document.addEventListener "keyup", InputManager.onKeyUp
-#        document.addEventListener "keydown", InputManager.onKeyDown
+        document.addEventListener "click", InputManager.mouseClick
+        document.addEventListener "mousemove", InputManager.mouseMove
+#        document.addEventListener "keyup", InputManager.keyUp
+#        document.addEventListener "keydown", InputManager.keyDown
 
-    @onMouseClick: (e) ->
+    @mouseClick: (e) -> if InputManager.onMouseClick then InputManager.onMouseClick e
 
-    @onMouseMove: (e) ->
+    @mouseMove: (e) ->
         InputManager.mouse.x = e.x
         InputManager.mouse.y = e.y
+        if InputManager.onMouseMove then InputManager.onMouseMove e
 
+
+    @onMouseClick: (e) ->
+    @onMouseMove: (e) ->
 #    @onKeyDown: (e) ->
 #    @onKeyUp: (e) ->
 
