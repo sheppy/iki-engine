@@ -19,7 +19,7 @@ class AssetManager
                         do (asset) ->
                             assetLoad = Util.load json.root + asset
                             assetLoad.then (data) ->
-                                AssetManager.assets[asset] = asset
+                                AssetManager.assets[asset] = data
                                 AssetManager.assetsLoaded++
                                 #AssetManager.onAssetLoad asset, data
                                 AssetManager.onProgress asset, groupName, AssetManager.assetsLoaded, AssetManager.numAssets
