@@ -8,5 +8,6 @@ class State
 
     init: ->
     activate: ->
+    deactivate: ->
 
 module.exports = State
