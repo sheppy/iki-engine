@@ -22,7 +22,10 @@ class AssetManager
                                 AssetManager.assets[asset] = data
                                 AssetManager.assetsLoaded++
                                 #AssetManager.onAssetLoad asset, data
-                                AssetManager.onProgress asset, groupName, AssetManager.assetsLoaded, AssetManager.numAssets
+                                AssetManager.onProgress asset,
+                                    groupName,
+                                    AssetManager.assetsLoaded,
+                                    AssetManager.numAssets
 
                                 if AssetManager.assetsLoaded is AssetManager.numAssets
                                     AssetManager.onLoaded()
