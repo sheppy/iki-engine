@@ -6,7 +6,7 @@ class InputManager
     @init: ->
         document.addEventListener "click", InputManager.mouseClick
         document.addEventListener "mousemove", InputManager.mouseMove
-#        document.addEventListener "keyup", InputManager.keyUp
+        document.addEventListener "keyup", InputManager.keyUp
 #        document.addEventListener "keydown", InputManager.keyDown
 
     @mouseClick: (e) -> if InputManager.onMouseClick then InputManager.onMouseClick e
@@ -16,11 +16,12 @@ class InputManager
         InputManager.mouse.y = e.y
         if InputManager.onMouseMove then InputManager.onMouseMove e
 
+    @keyUp: (e) -> if InputManager.onKeyUp then InputManager.onKeyUp e
 
     @onMouseClick: (e) ->
     @onMouseMove: (e) ->
+    @onKeyUp: (e) ->
 #    @onKeyDown: (e) ->
-#    @onKeyUp: (e) ->
 
 
 
