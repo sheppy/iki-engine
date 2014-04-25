@@ -73,7 +73,7 @@ class Map
         @tileSets.push tileSet
 
 
-    drawTile: (ctx, x, y, tw, th, tileNumber, tileSet) ->
+    drawTile: (ctx, x, y, tw, th, tileNumber, tileSet, offsetX = 0, offsetY = 0) ->
         # Find the srcX & srcY in the image - reverse (x * y) + x = n
         srcX = Math.floor(tileNumber % tileSet.numXTiles) * tileSet.tileWidth
         srcY = Math.floor(tileNumber / tileSet.numXTiles) * tileSet.tileHeight
@@ -81,26 +81,52 @@ class Map
         ctx.drawImage tileSet.img,
             srcX, srcY,
             tileSet.tileWidth, tileSet.tileHeight,
-            x * tileSet.tileWidth, y * tileSet.tileHeight,
+            (x * tileSet.tileWidth) + offsetX, (y * tileSet.tileHeight) + offsetY,
             tileSet.tileWidth, tileSet.tileHeight
+
+
+    drawTileFromNumber: (ctx, x, y, tw, th, tileNumber, offsetX = 0, offsetY = 0) ->
+        # Find out what tile set we are in
+        tileSet = @getTileSetOfTile tileNumber
+
+        if tileSet
+            tileNumber = tileNumber - tileSet.firstGid
+            @drawTile ctx, x, y, @tileWidth, @tileHeight, tileNumber, tileSet, offsetX, offsetY
+
+
+    getTileSetOfTile: (tileNumber) ->
+        for set in @tileSets
+            if (tileNumber >= set.firstGid) && (tileNumber <= set.lastGid)
+                return set
+        return false
 
 
     drawMap: (ctx) ->
         for layer in [0..@layers.length - 1]
             for y in [0..@height - 1]
                 for x in [0..@width - 1]
-                    tileNumber = @layers[layer].data[y][x]
+                    @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x]
 
-                    # Find out what tile set we are in
-                    tileSet = false
-                    for set in @tileSets
-                        if (tileNumber >= set.firstGid) && (tileNumber <= set.lastGid)
-                            tileSet = set
-                            break
 
-                    if tileSet
-                        tileNumber = tileNumber - tileSet.firstGid
-                        @drawTile ctx, x, y, @tileWidth, @tileHeight, tileNumber, tileSet
+    drawMapRect: (ctx, x, y, w, h) ->
+        # Only draws a region of the map, from pixel x,y of pixel size w,h
+        leftTile = Math.floor x / @tileWidth
+        rightTile = Math.ceil (x + w) / @tileWidth
+        topTile = Math.floor y / @tileHeight
+        bottomTile = Math.ceil (y + h) / @tileHeight
+
+        if leftTile < 0 then leftTile = 0
+        if topTile < 0 then topTile = 0
+        if rightTile > @width then rightTile = @width
+        if bottomTile > @height then bottomTile = @height
+
+        xOffset = 0 - x
+        yOffset = 0 - y
+
+        for layer in [0..@layers.length - 1]
+            for y in [topTile..bottomTile]
+                for x in [leftTile..rightTile]
+                    @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x], xOffset, yOffset
 
 
 module.exports = Map
