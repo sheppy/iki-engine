@@ -15,4 +15,20 @@ class Util
             xhr.send()
         return promise
 
+    @pluralise: (word) ->
+        len = word.length
+
+        l1 = word.substr -1
+        l2 = word.substr -2
+
+        if l1 == "y"
+            word = word.substr(0, len - 1) + "ies"
+        else if l1 == "s" || l1 == "x" || l2 == "ch" || l2 == "sh" || l2 == "es"
+            # If word ends in "s" "x" or "ch" or "sh" add "es"
+            word = word + "es"
+        else
+            word = word + "s"
+
+        return word
+
 module.exports = Util
