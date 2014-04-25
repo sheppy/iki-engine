@@ -5,40 +5,55 @@ GraphicsManager = require "../Manager/GraphicsManager.coffee"
 class GraphicsSystem extends System
     THROTTLE_VALUE: 16
 
-    init: (@width, @height, appendTo = false) =>
+    init: (@renderer) ->
         @viewportX = 0
         @viewportY = 0
+        @width = @renderer.canvas.width
+        @height = @renderer.canvas.height
 
-        @renderer = GraphicsManager.createRenderer @width, @height, appendTo
         @buffer = GraphicsManager.createRenderer @width, @height
 
     onBeforeDraw: (ctx, dt) ->
     onAfterDraw: (ctx, dt) ->
 
-    onUpdate: (dt) =>
+    onUpdate: (dt) ->
         @onBeforeDraw @buffer.ctx, dt
+
+        @drawRects()
+        @drawImages()
+        @drawTexts()
+
         @onAfterDraw @buffer.ctx, dt
-
-        renderableEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["Renderable", "Position"]
-        for entity in renderableEntities
-            renderable = EntityManager.getComponentOfType entity, "Renderable"
-            position = EntityManager.getComponentOfType entity, "Position"
-            @buffer.ctx.fillStyle = renderable.colour
-            @buffer.ctx.fillRect position.x, position.y, renderable.width, renderable.height
-
-
-        renderableTextEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["RenderableText", "Position"]
-        for entity in renderableTextEntities
-            text = EntityManager.getComponentOfType entity, "RenderableText"
-            position = EntityManager.getComponentOfType entity, "Position"
-            @buffer.ctx.fillStyle = text.colour
-            @buffer.ctx.font = text.font
-            @buffer.ctx.fillText text.text, position.x, position.y
 
         # Draw copy the buffer to main renderer
         @renderer.ctx.clearRect 0, 0, @width, @height
         @renderer.ctx.drawImage @buffer.canvas, 0, 0
         @buffer.ctx.clearRect 0, 0, @width, @height
+
+    drawRects: ->
+        rectEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["RenderableRect", "Position"]
+        for entity in rectEntities
+            rect = EntityManager.getComponentOfType entity, "RenderableRect"
+            position = EntityManager.getComponentOfType entity, "Position"
+            @buffer.ctx.fillStyle = rect.colour
+            @buffer.ctx.fillRect position.x, position.y, rect.width, rect.height
+
+    drawImages: ->
+        imageEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["RenderableImage", "Position"]
+        for entity in imageEntities
+            image = EntityManager.getComponentOfType entity, "RenderableImage"
+            position = EntityManager.getComponentOfType entity, "Position"
+            # TODO: Get the actual image?
+            @buffer.ctx.drawImage image, position.x, position.y
+
+    drawTexts: ->
+        textEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["RenderableText", "Position"]
+        for entity in textEntities
+            text = EntityManager.getComponentOfType entity, "RenderableText"
+            position = EntityManager.getComponentOfType entity, "Position"
+            @buffer.ctx.fillStyle = text.colour
+            @buffer.ctx.font = text.font
+            @buffer.ctx.fillText text.text, position.x, position.y
 
     ###
     init: ->
