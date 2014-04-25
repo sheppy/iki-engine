@@ -117,8 +117,8 @@ class Map
 
         if leftTile < 0 then leftTile = 0
         if topTile < 0 then topTile = 0
-        if rightTile > @width then rightTile = @width
-        if bottomTile > @height then bottomTile = @height
+        if rightTile >= @width then rightTile = @width - 1
+        if bottomTile >= @height then bottomTile = @height - 1
 
         xOffset = 0 - x
         yOffset = 0 - y
