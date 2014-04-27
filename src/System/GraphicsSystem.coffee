@@ -8,27 +8,28 @@ class GraphicsSystem extends System
     init: (@renderer) ->
         @viewportX = 0
         @viewportY = 0
-        @width = @renderer.canvas.width
-        @height = @renderer.canvas.height
 
-        @buffer = GraphicsManager.createRenderer @width, @height
+#        @buffer = GraphicsManager.createRenderer @width, @height
 
     onBeforeDraw: (ctx, dt) ->
     onAfterDraw: (ctx, dt) ->
 
     onUpdate: (dt) ->
-        @onBeforeDraw @buffer.ctx, dt
+        @renderer.ctx.clearRect 0, 0, @renderer.canvas.width, @renderer.canvas.height
+        @onBeforeDraw @renderer.ctx, dt
+#        @onBeforeDraw @buffer.ctx, dt
 
         @drawRects()
         @drawImages()
         @drawTexts()
 
-        @onAfterDraw @buffer.ctx, dt
+        @onAfterDraw @renderer.ctx, dt
+#        @onAfterDraw @buffer.ctx, dt
 
         # Draw copy the buffer to main renderer
-        @renderer.ctx.clearRect 0, 0, @width, @height
-        @renderer.ctx.drawImage @buffer.canvas, 0, 0
-        @buffer.ctx.clearRect 0, 0, @width, @height
+#        @renderer.ctx.clearRect 0, 0, @width, @height
+#        @renderer.ctx.drawImage @buffer.canvas, 0, 0
+#        @buffer.ctx.clearRect 0, 0, @width, @height
 
     drawRects: ->
         rectEntities = EntityManager.getAllEntitiesWithComponentOfTypes ["RenderableRect", "Position"]
