@@ -1,17 +1,17 @@
 class SceneManager
-    @currentState: "boot"
-    @states: {}
+    @currentScene: "boot"
+    @scenes: {}
 
-    @add: (name, state) ->
-        SceneManager.states[name] = state
+    @add: (name, scene) ->
+        SceneManager.scenes[name] = scene
         return null
 
-    @current: -> SceneManager.states[SceneManager.currentState]
+    @current: -> SceneManager.scenes[SceneManager.currentScene]
 
     @activate: (name) ->
         old = SceneManager.current()
         old.deactivate() if old
-        SceneManager.currentState = name
+        SceneManager.currentScene = name
         SceneManager.onActivate name
         SceneManager.current().activate()
         return null
