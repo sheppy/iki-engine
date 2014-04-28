@@ -1,13 +1,13 @@
-StateManager = require "./Manager/StateManager.coffee"
+SceneManager = require "./Manager/SceneManager.coffee"
 
 class Engine
     constructor: ->
         @lastGameTick = Date.now()
 
-    start: (state) ->
-        StateManager.add "boot", state
-        state.init()
-        StateManager.activate "boot"
+    start: (scene) ->
+        SceneManager.add "boot", scene
+        scene.init()
+        SceneManager.activate "boot"
         @mainLoop()
 
     mainLoop: ->
@@ -21,9 +21,9 @@ class Engine
         return null
 
     update: (dt) ->
-        state = StateManager.current()
+        scene = SceneManager.current()
 
-        for system in state.systems
+        for system in scene.systems
             system.update dt
         return null
 
