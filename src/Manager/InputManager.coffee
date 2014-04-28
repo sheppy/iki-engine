@@ -15,12 +15,12 @@ class InputManager
         document.addEventListener "keyup", InputManager.keyUp
         document.addEventListener "keydown", InputManager.keyDown
 
-    @mouseClick: (e) -> if InputManager.onMouseClick then InputManager.onMouseClick e
+    @mouseClick: (e) -> InputManager.onMouseClick? e
 
     @mouseMove: (e) ->
         InputManager.mouse.x = e.x
         InputManager.mouse.y = e.y
-        if InputManager.onMouseMove then InputManager.onMouseMove e
+        InputManager.onMouseMove? e
 
     @keyUp: (e) ->
         if e.keyCode == 38 then InputManager.key.up = false
@@ -28,7 +28,7 @@ class InputManager
         if e.keyCode == 37 then InputManager.key.left = false
         if e.keyCode == 39 then InputManager.key.right = false
 
-        if InputManager.onKeyUp then InputManager.onKeyUp e
+        InputManager.onKeyUp? e
 
     @keyDown: (e) ->
         if e.keyCode == 38 then InputManager.key.up = true
@@ -36,12 +36,12 @@ class InputManager
         if e.keyCode == 37 then InputManager.key.left = true
         if e.keyCode == 39 then InputManager.key.right = true
 
-        if InputManager.onKeyDown then InputManager.onKeyDown e
+        InputManager.onKeyDown? e
 
-    @onMouseClick: (e) ->
-    @onMouseMove: (e) ->
-    @onKeyUp: (e) ->
-    @onKeyDown: (e) ->
+    @onMouseClick: (e) -> # User level hook
+    @onMouseMove: (e) -> # User level hook
+    @onKeyUp: (e) -> # User level hook
+    @onKeyDown: (e) -> # User level hook
 
 
 module.exports = InputManager
