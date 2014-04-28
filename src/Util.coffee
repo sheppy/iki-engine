@@ -15,6 +15,17 @@ class Util
             xhr.send()
         return promise
 
+
+    @loadImage: (src) ->
+        promise = new Promise (resolve, reject) ->
+            image = new Image()
+            image.addEventListener "load", -> resolve @
+            image.addEventListener "error", -> reject "error"
+            image.src = src
+            if image.complete then resolve image
+        return promise
+
+
     @pluralise: (word) ->
         len = word.length
 

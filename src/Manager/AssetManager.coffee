@@ -6,36 +6,43 @@ class AssetManager
     @assetsLoaded = 0
 
     @load: (manifest) ->
-        promise = new Promise (resolve, reject) ->
-            console.log "AssetManager > load > #{manifest}"
+        promise = new Promise (resolve) ->
             loadManifest = Util.loadJSON manifest
             loadManifest.then (json) ->
-                for i,group of json.groups
-                    for asset in group
+                for i, assetGroup of json.assets
+                    for a in assetGroup
                         AssetManager.numAssets++
 
-                for groupName, group of json.groups
-                    for asset in group
+                for groupName, assetGroup of json.assets
+                    for asset in assetGroup
                         do (asset) ->
-                            assetLoad = Util.load json.root + asset
-                            assetLoad.then (data) ->
-                                AssetManager.assets[asset] = data
-                                AssetManager.assetsLoaded++
-                                #AssetManager.onAssetLoad asset, data
-                                AssetManager.onProgress asset,
-                                    groupName,
-                                    AssetManager.assetsLoaded,
-                                    AssetManager.numAssets
+                            # Load based on file type
+                            if asset.type == "image"
+                                assetLoad = Util.loadImage json.root + asset.file
+                                assetLoad.then (img) -> AssetManager.assetLoaded asset, groupName, resolve, img
+                            else if asset.type == "json"
+                                assetLoad = Util.loadJSON json.root + asset.file
+                                assetLoad.then (json) -> AssetManager.assetLoaded asset, groupName, resolve, json
+                            else
+                                assetLoad = Util.load json.root + asset.file
+                                assetLoad.then -> AssetManager.assetLoaded asset, groupName, resolve
 
-                                if AssetManager.assetsLoaded is AssetManager.numAssets
-                                    AssetManager.onLoaded()
-                                    resolve()
         return promise
 
-    #@onAssetLoad: (asset, data) ->
-    #@onAssetError: (asset) ->
-    @onProgress: (asset, group, loaded, total) ->
-    @onLoaded: ->
+    @assetLoaded: (asset, groupName, resolve, data) ->
+        if data then AssetManager.assets[asset.file] = data
+        AssetManager.assetsLoaded++
+        AssetManager.onProgress asset,
+            groupName,
+            AssetManager.assetsLoaded,
+            AssetManager.numAssets
+
+        if AssetManager.assetsLoaded is AssetManager.numAssets
+            AssetManager.onLoaded()
+            resolve()
+
+    @onProgress: (asset, group, loaded, total) -> # User level hook
+    @onLoaded: -> # User level hook
 
     @get: (asset) -> AssetManager.assets[asset]
 
