@@ -1,4 +1,4 @@
-class State
+class Scene
     constructor: ->
         @systems = []
 
@@ -10,4 +10,4 @@ class State
     activate: ->
     deactivate: ->
 
-module.exports = State
+module.exports = Scene
