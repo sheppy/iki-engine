@@ -29,8 +29,8 @@ class Map
         for tileSet in @tileSets
             promise = new Promise (resolve, reject) ->
                 tileSet.img = new Image()
-                # Note the path is hard coded and should probably be based on the location of the map
-                tileSet.img.src = "/assets/map/" + tileSet.src
+                # TODO: Note the path is hard coded and should probably be based on the location of the map
+                tileSet.img.src = "assets/map/" + tileSet.src
                 tileSet.img.onload = -> resolve()
                 tileSet.img.onerror = -> reject()
             loadPromises.push promise
