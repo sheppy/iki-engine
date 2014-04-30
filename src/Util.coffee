@@ -42,4 +42,8 @@ class Util
 
         return word
 
+
+    @isPointInRect: (x, y, rx, ry, rw, rh) ->
+        return x >= rx && x <= rx + rw && y >= ry && y <= ry + rh
+
 module.exports = Util
