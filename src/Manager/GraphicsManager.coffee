@@ -14,6 +14,8 @@ class GraphicsManager
         renderer = {}
         renderer.canvas = GraphicsManager.createCanvas width, height, appendTo
         renderer.ctx = renderer.canvas.getContext "2d"
+        renderer.width = width
+        renderer.height = height
         return renderer
 
 
@@ -48,5 +50,35 @@ class GraphicsManager
 
         ctx.drawImage image, 0, 0, imageWidth, imageHeight, 0, 0, width, height
 
+
+    @roundedRectStroke: (ctx, x, y, w, h, radius) ->
+        r = x + w
+        b = y + h
+        ctx.beginPath()
+        ctx.moveTo x + radius, y
+        ctx.lineTo r - radius, y
+        ctx.quadraticCurveTo r, y, r, y + radius
+        ctx.lineTo r, y + h - radius
+        ctx.quadraticCurveTo r, b, r - radius, b
+        ctx.lineTo x + radius, b
+        ctx.quadraticCurveTo x, b, x, b - radius
+        ctx.lineTo x, y + radius
+        ctx.quadraticCurveTo x, y, x + radius, y
+        ctx.stroke()
+
+    @roundedRectFill: (ctx, x, y, w, h, radius) ->
+        r = x + w
+        b = y + h
+        ctx.beginPath()
+        ctx.moveTo x + radius, y
+        ctx.lineTo r - radius, y
+        ctx.quadraticCurveTo r, y, r, y + radius
+        ctx.lineTo r, y + h - radius
+        ctx.quadraticCurveTo r, b, r - radius, b
+        ctx.lineTo x + radius, b
+        ctx.quadraticCurveTo x, b, x, b - radius
+        ctx.lineTo x, y + radius
+        ctx.quadraticCurveTo x, y, x + radius, y
+        ctx.fill()
 
 module.exports = GraphicsManager
