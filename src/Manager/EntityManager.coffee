@@ -25,8 +25,14 @@ class EntityManager
         return entity
 
     @deleteEntity: (entity) ->
-        entity.removeAllComponents()
+        EntityManager.removeAllComponents entity
         @removeEntity entity
+
+    @deleteAllEntities: ->
+        for entity in @entities
+            EntityManager.removeAllComponents entity
+        @entities.length = 0
+
 
     @getEntityById: ->
     @getAllEntitiesWithComponentOfType: ->
