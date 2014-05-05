@@ -8,12 +8,12 @@ class SceneManager
 
     @current: -> SceneManager.scenes[SceneManager.currentScene]
 
-    @activate: (name) ->
+    @activate: (name, args...) ->
         old = SceneManager.current()
         old.deactivate() if old
         SceneManager.currentScene = name
         SceneManager.onActivate name
-        SceneManager.current()?.activate()
+        SceneManager.current()?.activate.apply SceneManager.current(), args
         return null
 
     @onActivate: (name) -> # User level hook
