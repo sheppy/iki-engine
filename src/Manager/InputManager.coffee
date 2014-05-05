@@ -32,8 +32,8 @@ class InputManager
         element.addEventListener "mousemove", InputManager.mouseMove
         element.addEventListener "touchmove", InputManager.mouseMove
 
-        element.addEventListener "keyup", InputManager.keyUp
-        element.addEventListener "keydown", InputManager.keyDown
+        document.addEventListener "keyup", InputManager.keyUp
+        document.addEventListener "keydown", InputManager.keyDown
 
     @mouseClick: (e) ->
         x = InputManager.transformMouseX e.x
