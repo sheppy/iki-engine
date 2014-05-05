@@ -41,7 +41,7 @@ class InputManager
         moveX = Math.abs InputManager.mouse.downX - x
         moveY = Math.abs InputManager.mouse.downY - y
         if moveX < InputManager.CLICK_MOVE_THRESHOLD && moveY < InputManager.CLICK_MOVE_THRESHOLD
-            InputManager.onMouseClick? {x:x, y:y}
+            InputManager.onMouseClick? {x: x, y: y}
 
     @mouseDown: (e) ->
         if e.changedTouches
@@ -76,7 +76,7 @@ class InputManager
         InputManager.mouse.y = y = InputManager.transformMouseY y
 
 #        InputManager.mouse.down = false
-        InputManager.onMouseMove? {x:x, y:y}
+        InputManager.onMouseMove? {x: x, y: y}
         e.preventDefault()
 
     @keyUp: (e) ->
