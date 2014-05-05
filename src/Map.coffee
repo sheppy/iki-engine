@@ -45,6 +45,8 @@ class Map
         layer =
             name: layerData.name
             data: []
+            visible: layerData.visible
+            properties: layerData.properties ? {}
 
         # Copy the tile number to the layer
         for y in [0..@height - 1]
@@ -108,25 +110,52 @@ class Map
                     @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x]
 
 
-    drawMapRect: (ctx, x, y, w, h) ->
+    getRenderRect: (x, y, w, h) ->
         # Only draws a region of the map, from pixel x,y of pixel size w,h
-        leftTile = Math.floor x / @tileWidth
-        rightTile = Math.ceil (x + w) / @tileWidth
-        topTile = Math.floor y / @tileHeight
-        bottomTile = Math.ceil (y + h) / @tileHeight
+        rect =
+            left:   Math.floor x / @tileWidth
+            right:  Math.ceil (x + w) / @tileWidth
+            top:    Math.floor y / @tileHeight
+            bottom: Math.ceil (y + h) / @tileHeight
 
-        if leftTile < 0 then leftTile = 0
-        if topTile < 0 then topTile = 0
-        if rightTile >= @width then rightTile = @width - 1
-        if bottomTile >= @height then bottomTile = @height - 1
+        if rect.left < 0 then rect.left = 0
+        if rect.top < 0 then rect.top = 0
+        if rect.right >= @width then rect.right = @width - 1
+        if rect.bottom >= @height then rect.bottom = @height - 1
+
+        return rect
+
+    drawMapRect: (ctx, x, y, w, h) ->
+        rect = @getRenderRect x, y, w, h
 
         xOffset = 0 - x
         yOffset = 0 - y
 
         for layer in [0..@layers.length - 1]
-            for y in [topTile..bottomTile]
-                for x in [leftTile..rightTile]
-                    @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x], xOffset, yOffset
+            if @layers[layer].visible
+                for y in [rect.top..rect.bottom]
+                    for x in [rect.left..rect.right]
+                        @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x], xOffset, yOffset
 
+    drawLayerRect: (ctx, x, y, w, h, layerIndex) ->
+        rect = @getRenderRect x, y, w, h
+
+        xOffset = 0 - x
+        yOffset = 0 - y
+
+        layer = @layers[layerIndex]
+        for y in [rect.top..rect.bottom]
+            for x in [rect.left..rect.right]
+                @drawTileFromNumber ctx, x, y, @tileWidth, @tileHeight, @layers[layer].data[y][x], xOffset, yOffset
+
+    getLayerIndexByName: (name) ->
+        for layer in [0..@layers.length - 1]
+            if @layers[layer].name == name
+                return layer
+
+    getLayerIndexWithProperty: (name, value) ->
+        for layer in [0..@layers.length - 1]
+            if @layers[layer].properties[name] && @layers[layer].properties[name] == value
+                return layer
 
 module.exports = Map
