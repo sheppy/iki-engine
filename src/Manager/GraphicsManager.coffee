@@ -19,6 +19,10 @@ class GraphicsManager
         return renderer
 
 
+    @cloneRenderer: (oldRenderer, appendTo) ->
+        GraphicsManager.createRenderer oldRenderer.canvas.width, oldRenderer.canvas.height, appendTo
+
+
     @fillImage: (ctx, image, imageWidth, imageHeight, destinationWidth, destinationHeight) ->
         ratioImage = imageWidth / imageHeight
         ratioDestination = destinationWidth / destinationHeight
