@@ -16,26 +16,29 @@ class AssetManager
                     for a in assetGroup
                         AssetManager.numAssets++
 
-                for groupName, assetGroup of json.assets
-                    for asset in assetGroup
-                        AssetManager.onBeforeLoad? asset,
-                            groupName,
-                            AssetManager.assetsLoaded,
-                            AssetManager.numAssets
+                if not AssetManager.numAssets
+                    resolve()
+                else
+                    for groupName, assetGroup of json.assets
+                        for asset in assetGroup
+                            AssetManager.onBeforeLoad? asset,
+                                groupName,
+                                AssetManager.assetsLoaded,
+                                AssetManager.numAssets
 
-                        do (asset) ->
-                            # Load based on file type
-                            if asset.type == "image"
-                                assetLoad = Util.loadImage json.root + asset.file
-                                assetLoad.then (img) -> AssetManager.assetLoaded asset, groupName, resolve, img
-                            else if asset.type == "json"
-                                assetLoad = Util.loadJSON json.root + asset.file
-                                assetLoad.then (json) -> AssetManager.assetLoaded asset, groupName, resolve, json
-                            else
-                                assetLoad = Util.load json.root + asset.file
-                                assetLoad.then -> AssetManager.assetLoaded asset, groupName, resolve
- #
-                            assetLoad.catch -> AssetManager.onError asset, groupName
+                            do (asset) ->
+                                # Load based on file type
+                                if asset.type == "image"
+                                    assetLoad = Util.loadImage json.root + asset.file
+                                    assetLoad.then (img) -> AssetManager.assetLoaded asset, groupName, resolve, img
+                                else if asset.type == "json"
+                                    assetLoad = Util.loadJSON json.root + asset.file
+                                    assetLoad.then (json) -> AssetManager.assetLoaded asset, groupName, resolve, json
+                                else
+                                    assetLoad = Util.load json.root + asset.file
+                                    assetLoad.then -> AssetManager.assetLoaded asset, groupName, resolve
+
+                                assetLoad.catch -> AssetManager.onError asset, groupName
 
         return promise
 

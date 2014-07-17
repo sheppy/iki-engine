@@ -9,6 +9,8 @@ class GraphicsSystem extends System
         @viewportX = 0
         @viewportY = 0
 
+        @buffer = @renderer
+
 #        @buffer = GraphicsManager.createRenderer @width, @height
 
     onBeforeDraw: (ctx, dt) ->
