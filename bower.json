@@ -1,0 +1,15 @@
+{
+  "name": "iki-engine",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://github.com/sheppy/iki-engine",
+  "authors": [
+    "Chris Sheppard (http://www.chrissheppard.co.uk/)"
+  ],
+  "license": "GPL-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}
