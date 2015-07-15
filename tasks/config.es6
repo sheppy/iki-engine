@@ -13,7 +13,9 @@ export default {
     dir: {
         src: "src",
         dist: "lib",
-        tasks: "tasks"
+        tests: "test",
+        tasks: "tasks",
+        coverage: "coverage"
     },
     file: {
         gulpfile: "gulpfile.js",
