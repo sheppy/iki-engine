@@ -1,10 +1,6 @@
 import PIXI from "pixi.js";
 
-import GFX from "../../src/engine/graphic/GFX";
-import Scene from "../../src/engine/scene/Scene";
-import AssetManager from "../../src/engine/asset/AssetManager";
-import SceneManager from "../../src/engine/scene/SceneManager";
-
+import { GFX, Scene, AssetManager, SceneManager } from "../../src/engine/index";
 
 import PrototypeMapScene from "./PrototypeMapScene";
 

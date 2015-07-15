@@ -1,5 +1,5 @@
 import PIXI from "pixi.js";
-import Color from "./graphics/Color";
+import Color from "../graphic/Color";
 
 /**
  * @class Tile

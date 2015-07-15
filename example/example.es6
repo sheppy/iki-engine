@@ -3,9 +3,7 @@ import PIXI from "pixi.js";
 // Prevent fuzzy scaling on pixels
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
-import GFX from "../src/engine/graphic/GFX";
-import Game from "../src/engine/core/Game";
-import SceneManager from "../src/engine/scene/SceneManager";
+import { GFX, Game, SceneManager } from "../src/engine/index";
 
 import BootstrapScene from "./scene/BootstrapScene";
 

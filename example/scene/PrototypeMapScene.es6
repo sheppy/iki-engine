@@ -1,6 +1,4 @@
-import Scene from "../../src/engine/scene/Scene";
-import Tile from "../../src/engine/map/Tile";
-import TileMap from "../../srcengine/map/TileMap";
+import { Scene, Tile, TileMap } from "../../src/engine/index";
 
 /**
  * @class

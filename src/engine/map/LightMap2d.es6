@@ -1,4 +1,4 @@
-import AbstractMap2D from "AbstractMap2D";
+import AbstractMap2D from "./AbstractMap2D";
 
 // https://github.com/sheppy/mercenary-strike-force/blob/develop/src/engine/LightMap.js
 /**
