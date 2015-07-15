@@ -18,7 +18,12 @@ export default {
         coverage: "coverage"
     },
     file: {
+        vendorJs: "vendor.js",
         gulpfile: "gulpfile.js",
         esLint: ".eslintrc"
-    }
+    },
+
+    libs: [
+        "pixi.js"
+    ]
 };
