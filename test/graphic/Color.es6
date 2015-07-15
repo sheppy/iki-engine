@@ -6,7 +6,7 @@ import sinonChai from "sinon-chai";
 chai.should();
 chai.use(sinonChai);
 
-import Color from "../src/engine/Color"
+import Color from "../../src/engine/graphic/Color"
 
 const COLOR_WHITE   = 0xFFFFFF;
 const COLOR_RED     = 0xFF0000;

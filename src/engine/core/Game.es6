@@ -1,6 +1,6 @@
-import GFX from "./GFX";
-import SceneManager from "./SceneManager";
-import FpsMeter from "./FpsMeter";
+import GFX from "./../graphic/GFX";
+import SceneManager from "./../scene/SceneManager";
+import FpsMeter from "./../graphic/FpsMeter";
 
 /**
  * @class Game
