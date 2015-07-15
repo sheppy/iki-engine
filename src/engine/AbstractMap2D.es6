@@ -13,7 +13,6 @@ export default class AbstractMap2D {
         this.width = width;
         this.height = height;
         this.map = [];
-        this.init();
     }
 
     /**
@@ -34,11 +33,11 @@ export default class AbstractMap2D {
      * Clears the map with default values
      */
     clear() {
-        this.map.forEach(function (row) {
-            row.forEach(function (tile) {
+        this.map.forEach((row) => {
+            row.forEach((tile) => {
                 this.initTile(tile);
-            }, this);
-        }, this);
+            });
+        });
     }
 
     /**
