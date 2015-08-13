@@ -7,6 +7,7 @@ class Map
         @tileWidth = 0
         @tileHeight = 0
         @layers = []
+        @objects = []
         @tileSets = []
 
 
@@ -22,6 +23,7 @@ class Map
         @tileHeight = mapData.tileheight
 
         @parseLayer layer for layer in mapData.layers
+        @parseObjects layer for layer in mapData.layers
         @parseTileSet tileSet for tileSet in mapData.tilesets
 
         # Load the image assets
@@ -55,6 +57,18 @@ class Map
                 layer.data[y][x] = layerData.data[(y * @width) + x]
 
         @layers.push layer
+
+
+    parseObjects: (layerData) ->
+        # Currently only deal with object group
+        if layerData.type != "objectgroup" then return
+
+        layer =
+            name: layerData.name
+            visible: layerData.visible
+            objects: layerData.objects ? []
+
+        @objects.push layer
 
 
     parseTileSet: (tileSetData) ->
@@ -156,6 +170,11 @@ class Map
     getLayerIndexWithProperty: (name, value) ->
         for layer in [0..@layers.length - 1]
             if @layers[layer].properties[name] && @layers[layer].properties[name] == value
+                return layer
+
+    getObjectsIndexByName: (name) ->
+        for layer in [0..@objects.length - 1]
+            if @objects[layer].name == name
                 return layer
 
 module.exports = Map
