@@ -16,26 +16,35 @@ export default class Rect {
         this.y = y;
     }
 
-    getBounds() {
+    bounds() {
         throw new Error("Method not implemented");
     }
 
     /**
-     * Determine if a rectangle contains the coordinates (x,y) within it's boundaries.
+     * Determine if the rectangle contains the point within it's boundaries.
      *
-     * @param {number} x
-     * @param {number} y
+     * @param {Point2d} point
      */
-    containsPoint(x, y) {
-        throw new Error("Method not implemented");
+    containsPoint(point) {
+        return !(
+            point.x < this.x ||
+            point.x > this.x + this.width ||
+            point.y < this.y ||
+            point.y > this.y + this.height
+        );
     }
 
     /**
-     * Determine if two rectangles overlap.
+     * Determine if it intersects with another rectangle.
      *
      * @param {Rect} rect
      */
-    intersects(rect) {
-        throw new Error("Method not implemented");
+    intersectsRect(rect) {
+        return !(
+            this.x + rectA.width < rect.x ||
+            rect.x + rect.width < this.x ||
+            this.y + this.height < rect.y ||
+            rect.y + rect.height < this.y
+        );
     }
 }

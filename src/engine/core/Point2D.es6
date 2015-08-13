@@ -1,9 +1,9 @@
 /**
- * @class Point2D
+ * @class Point2d
  */
-export default class Point2D {
+export default class Point2d {
     /**
-     * @constructs Point2D
+     * @constructs Point2d
      * @param {number} [x=0]
      * @param {number} [y=0]
      */

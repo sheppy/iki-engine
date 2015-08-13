@@ -1,12 +1,12 @@
 /**
- * @class Line2D
+ * @class Line2d
  */
-export default class Line2D {
+export default class Line2d {
     /**
-     * @constructs Point2D
+     * @constructs Line2d
      * @param {number} x1
      * @param {number} y1
-     * @param {number} x1
+     * @param {number} x2
      * @param {number} y2
      */
     constructor(x1, y1, x2, y2) {
@@ -16,7 +16,11 @@ export default class Line2D {
         this.y2 = y2;
     }
 
-    getBounds() {
+    bounds() {
+        throw new Error("Method not implemented");
+    }
+
+    length() {
         throw new Error("Method not implemented");
     }
 }
