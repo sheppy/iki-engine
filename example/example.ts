@@ -1,6 +1,5 @@
-import Point from "../src/engine-ts/Point";
-import Line from "../src/engine-ts/Line";
-import Singleton from "../src/engine-ts/Singleton";
+import Point from "../src/engine-ts/shape/Point";
+import Line from "../src/engine-ts/shape/Line";
 
 let start: Point = new Point(5, 5);
 let end: Point = new Point(0, 0);
