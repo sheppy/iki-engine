@@ -48,6 +48,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "fpsmeter": "git://github.com/darsain/fpsmeter.git#v0.3.1",
     "pixi.js": "^3.0.7"
   }
 }

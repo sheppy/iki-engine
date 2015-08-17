@@ -20,10 +20,7 @@ gulp.task("ts", () => {
             plugin: [bundleCollapser],
             bundleExternal: false   // Don't load external requires
         })
-            .plugin(tsify, {
-                noImplicitAny: true,
-                target: "ES5"
-            })
+            .plugin(tsify)
             .bundle((err, res) => {
                 if (err) {
                     throw err;
