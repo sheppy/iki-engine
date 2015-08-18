@@ -22,6 +22,16 @@ export default class ExampleScene extends Scene {
     }
 
     public update(dt: number): void {
-        this.img.rotation += 0.1;
+        if (dt === 0) {
+            return;
+        }
+
+        let seconds = 2;
+        dt = dt / 1000;
+
+        let rotation = ((Math.PI * 2) / seconds) * dt;
+        console.log(rotation);
+
+        this.img.rotation += rotation;
     }
 }

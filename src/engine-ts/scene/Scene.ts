@@ -1,5 +1,4 @@
 /// <reference path="../../../typings/pixi.js/pixi.js.d.ts" />
-//import PIXI from "pixi.js";
 
 export default class Scene extends PIXI.Container {
     private active: boolean;

@@ -13,6 +13,8 @@ import config from "./config";
 
 var plugins = gulpLoadPlugins();
 
+var browserSyncServer = browserSync.create();
+
 
 // Compile TypeScript
 gulp.task("example-ts", () => {
@@ -48,8 +50,6 @@ gulp.task("example-ts", () => {
         .pipe(gulp.dest(config.dir.dist));
 });
 
-gulp.task("example-ts-watch", ["example-ts"], browserSync.reload);
-
 
 // HTML tasks
 gulp.task("example-html", () => {
@@ -57,8 +57,6 @@ gulp.task("example-html", () => {
         .src(path.join(config.dir.example, config.glob.html))
         .pipe(gulp.dest(config.dir.dist));
 });
-
-gulp.task("example-html-watch", ["example-html"], browserSync.reload);
 
 
 // Vendor JS
@@ -83,18 +81,18 @@ gulp.task("example-assets", () => {
 gulp.task("example", ["example-vendor", "example-html", "example-ts"]);
 
 gulp.task("example-server", ["example"], () => {
-    browserSync.create().init({
+    browserSyncServer.init({
         server: {
             baseDir: config.dir.dist,
             index: "example.html"
         },
         open: false,
-        notify: false
+        notify: true
     });
 
     gulp.watch([
         path.join(config.dir.example, config.glob.ts),
         path.join(config.dir.src, config.glob.ts)
-    ], ["example-ts-watch"]);
-    gulp.watch(path.join(config.dir.example, config.glob.html), ["example-html-watch"]);
+    ], ["example-ts", browserSyncServer.reload]);
+    gulp.watch(path.join(config.dir.example, config.glob.html), ["example-html", browserSyncServer.reload]);
 });
