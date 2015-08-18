@@ -16,11 +16,15 @@ var plugins = gulpLoadPlugins();
 gulp.task("ts", () => {
     var bundler = through2.obj((file, enc, next) => {
         browserify(file.path, {
+            debug: true,
             extensions: [".ts"],
-            plugin: [bundleCollapser],
             bundleExternal: false   // Don't load external requires
         })
-            .plugin(tsify)
+            .plugin(tsify, {
+                rootDir: './',
+                sourceRoot: './'
+            })
+            .plugin(bundleCollapser)
             .bundle((err, res) => {
                 if (err) {
                     throw err;

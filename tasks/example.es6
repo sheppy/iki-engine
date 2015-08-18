@@ -5,6 +5,7 @@ import gulp from "gulp";
 import gulpLoadPlugins from "gulp-load-plugins";
 import through2 from "through2";
 import browserify from "browserify";
+import babelify from "babelify";
 import tsify from "tsify";
 import bundleCollapser from "bundle-collapser/plugin";
 import browserSync from "browser-sync";
@@ -17,11 +18,15 @@ var plugins = gulpLoadPlugins();
 gulp.task("example-ts", () => {
     var bundler = through2.obj((file, enc, next) => {
         browserify(file.path, {
+            debug: true,
             extensions: [".ts"],
-            plugin: [bundleCollapser],
             bundleExternal: false   // Don't load external requires
         })
-            .plugin(tsify)
+            .plugin(tsify, {
+                rootDir: './',
+                sourceRoot: './'
+            })
+            .plugin(bundleCollapser)
             .bundle((err, res) => {
                 if (err) {
                     throw err;
