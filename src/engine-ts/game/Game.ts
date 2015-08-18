@@ -1,6 +1,6 @@
 import Graphics from "../graphics/Graphics";
 import FpsMeter from "../graphics/FpsMeter";
-import SceneManager from "../Scene/SceneManager";
+import SceneManager from "../scene/SceneManager";
 
 export default class Game {
     skipTicks: number;

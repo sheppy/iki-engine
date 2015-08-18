@@ -2,18 +2,26 @@
 import Scene from "../../src/engine-ts/scene/Scene";
 
 export default class ExampleScene extends Scene {
+    img: PIXI.Sprite;
+
     protected init(): void {
-        console.log("ExampleScene:init");
+        // Add our image
+        this.img = PIXI.Sprite.fromImage("/null.png");
+        this.addChild(this.img);
     }
 
-    public onActivate(data: Object): void {
-        super.onActivate(data);
+    public activate(data: Object = {}): void {
+        super.activate(data);
 
-        let img = PIXI.Sprite.fromImage("/null.png");
-        img.anchor.x = 0.5;
-        img.anchor.y = 0.5;
-        img.position.x = 50;
-        img.position.y = 50;
-        this.addChild(img);
+        // Set defaults
+        this.img.anchor.x = 0.5;
+        this.img.anchor.y = 0.5;
+        this.img.position.x = 50;
+        this.img.position.y = 50;
+        this.img.rotation  = 0;
+    }
+
+    public update(dt: number): void {
+        this.img.rotation += 0.1;
     }
 }
