@@ -9,7 +9,7 @@ export default class ExampleScene extends Scene {
     public onActivate(data: Object): void {
         super.onActivate(data);
 
-        let img = PIXI.Sprite.fromImage("http://s.w.org/images/core/emoji/72x72/1f609.png");
+        let img = PIXI.Sprite.fromImage("/null.png");
         img.anchor.x = 0.5;
         img.anchor.y = 0.5;
         img.position.x = 50;

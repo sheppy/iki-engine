@@ -17,7 +17,8 @@ export default {
         example: "example",
         tests: "test",
         tasks: "tasks",
-        coverage: "coverage"
+        coverage: "coverage",
+        nodeModules: "node_modules"
     },
     file: {
         vendorJs: "vendor.js",
