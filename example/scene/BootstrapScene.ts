@@ -5,6 +5,7 @@ import SceneManager from "../../src/engine-ts/scene/SceneManager";
 
 // TODO: Better way for scenes?
 import ExampleScene from "./ExampleScene";
+import MapScene from "./MapScene";
 
 export default class BootstrapScene extends Scene {
     loadingText: PIXI.Text;
@@ -42,7 +43,7 @@ export default class BootstrapScene extends Scene {
         console.log("Assets have been loaded");
 
         // Change scene
-        SceneManager.createScene("example", ExampleScene);
+        SceneManager.createScene("example", MapScene);
         SceneManager.goToScene("example");
     }
 }
