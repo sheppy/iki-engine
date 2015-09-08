@@ -8,7 +8,7 @@ interface IAsset {
 class AssetManager {
     private assetQueue: IAsset[] = [];
 
-    addImage(name: string, url: string): void {
+    public add(name: string, url: string = ""): void {
         if (!url) {
             url = name;
         }
@@ -16,21 +16,17 @@ class AssetManager {
         this.assetQueue.push({name: name, url: url});
     }
 
-    load(onComplete: Function, onProgress: Function): void {
-        //let loader = new PIXI.JsonLoader(url);
-        // Load images
+    public load(onComplete: Function, onProgress: Function): void {
         let loader = new PIXI.loaders.Loader();
 
         this.assetQueue.forEach(function (image: IAsset): void {
-            loader.add(image.name, image.url);
+            loader.add(image);
         });
 
         // Clear current queue
         this.assetQueue = [];
 
-        if (onComplete) {
-            loader.on("complete", onComplete);
-        }
+        loader.on("complete", onComplete);
 
         if (onProgress) {
             loader.on("progress", onProgress);

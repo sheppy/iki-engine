@@ -15,6 +15,10 @@ var plugins = gulpLoadPlugins();
 
 var browserSyncServer = browserSync.create();
 
+var onError = function(err) {
+    console.error(err);
+    this.emit('end');
+};
 
 // Compile TypeScript
 gulp.task("example-ts", () => {
@@ -40,7 +44,9 @@ gulp.task("example-ts", () => {
 
     return gulp
         .src(path.join(config.dir.example, "example.ts"))
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber({
+            errorHandler: onError
+        }))
         .pipe(bundler)
         .pipe(plugins.rename({
             basename: "example",
@@ -73,7 +79,10 @@ gulp.task("example-vendor", () => {
 // Assets
 gulp.task("example-assets", () => {
     return gulp
-        .src(path.join(config.dir.src, "null.png"))
+        .src([
+            path.join(config.dir.example, "assets/**/*"),
+            path.join(config.dir.src, "null.png")
+        ])
         .pipe(gulp.dest(config.dir.dist));
 });
 

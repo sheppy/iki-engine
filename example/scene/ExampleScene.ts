@@ -6,7 +6,8 @@ export default class ExampleScene extends Scene {
 
     protected init(): void {
         // Add our image
-        this.img = PIXI.Sprite.fromImage("/null.png");
+        //this.img = PIXI.Sprite.fromImage("null.png");
+        this.img = PIXI.Sprite.fromFrame("ocean.png");
         this.addChild(this.img);
     }
 

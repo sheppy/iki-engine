@@ -28,8 +28,8 @@ export default class BootstrapScene extends Scene {
     }
 
     protected loadAssets(): void {
-        // TODO: Load from json file
-        AssetManager.addImage("null", "/null.png");
+        AssetManager.add("null", "null.png");
+        AssetManager.add("tiles.json");
         AssetManager.load(this.onAssetsLoaded.bind(this), this.onAssetLoad.bind(this));
     }
 
