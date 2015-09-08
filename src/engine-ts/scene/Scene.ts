@@ -2,13 +2,12 @@
 
 export default class Scene extends PIXI.Container {
     private active: boolean;
-    private sceneVisible: boolean;
 
     constructor() {
         super();
 
         this.active = false;
-        this.sceneVisible = false;
+        this.visible = false;
 
         this.init();
     }
@@ -23,10 +22,12 @@ export default class Scene extends PIXI.Container {
 
     public activate(data: Object = {}): void {
         this.active = true;
+        this.visible = true;
     }
 
     public deactivate(data: Object = {}): void {
         this.active = false;
+        this.visible = false;
     }
 
     public isActive(): boolean {
