@@ -85,7 +85,7 @@ class SceneManager {
             this.scenes[id].deactivate();
         }
 
-        this.stage.addChild(this.scenes[id]);
+        this.stage.removeChild(this.scenes[id]);
 
         delete this.scenes[id];
 

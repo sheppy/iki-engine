@@ -20,6 +20,13 @@ export default class BootstrapScene extends Scene {
         this.loadAssets();
     }
 
+    public deactivate(data: Object = {}): void {
+        super.deactivate(data);
+
+        // Destroy ourselves as we are only needed once
+        SceneManager.removeScene("bootstrap");
+    }
+
     protected loadAssets(): void {
         // TODO: Load from json file
         AssetManager.addImage("null", "/null.png");
