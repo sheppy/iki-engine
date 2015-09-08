@@ -6,7 +6,7 @@ class Graphics {
     private width: number;
     private height: number;
 
-    public init(element: HTMLElement, width: number, height: number): boolean {
+    public init(element: HTMLElement, width: number, height: number, options: PIXI.RendererOptions = {}): boolean {
         this.width = width;
         this.height = height;
 
@@ -16,7 +16,7 @@ class Graphics {
         }
 
         // Create the renderer
-        this.renderer = new PIXI.WebGLRenderer(width, height);
+        this.renderer = new PIXI.WebGLRenderer(width, height, options);
         element.appendChild(this.renderer.view);
     }
 
