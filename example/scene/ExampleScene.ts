@@ -30,7 +30,6 @@ export default class ExampleScene extends Scene {
         dt = dt / 1000;
 
         let rotation = ((Math.PI * 2) / seconds) * dt;
-        console.log(rotation);
 
         this.img.rotation += rotation;
     }

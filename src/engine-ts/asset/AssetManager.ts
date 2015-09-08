@@ -1,9 +1,12 @@
 /// <reference path="../../../typings/pixi.js/pixi.js.d.ts" />
-// import PIXI from "pixi.js";
 
+interface IAsset {
+    name: string;
+    url: string;
+}
 
 class AssetManager {
-    private assetQueue: Array = [];
+    private assetQueue: IAsset[] = [];
 
     addImage(name: string, url: string): void {
         if (!url) {
@@ -18,7 +21,7 @@ class AssetManager {
         // Load images
         let loader = new PIXI.loaders.Loader();
 
-        this.assetQueue.forEach(function (image: {name: string, url: string}): void {
+        this.assetQueue.forEach(function (image: IAsset): void {
             loader.add(image.name, image.url);
         });
 
