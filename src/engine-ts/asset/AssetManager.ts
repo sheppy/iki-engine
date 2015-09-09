@@ -6,7 +6,22 @@ interface IAsset {
 }
 
 class AssetManager {
+    private loader: PIXI.loaders.Loader;
     private assetQueue: IAsset[] = [];
+
+    constructor() {
+        this.loader = new PIXI.loaders.Loader();
+    }
+
+    public get(name: string): Object {
+        let resource = this.loader.resources[name];
+
+        if (!resource) {
+            return null;
+        }
+
+        return resource.data;
+    }
 
     public add(name: string, url: string = ""): void {
         if (!url) {
@@ -17,7 +32,7 @@ class AssetManager {
     }
 
     public load(onComplete: Function, onProgress: Function): void {
-        let loader = new PIXI.loaders.Loader();
+        let loader = this.loader;
 
         this.assetQueue.forEach(function (image: IAsset): void {
             loader.add(image);
