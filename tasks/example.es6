@@ -87,7 +87,7 @@ gulp.task("example-assets", () => {
 });
 
 // Main example app
-gulp.task("example", ["example-vendor", "example-html", "example-ts"]);
+gulp.task("example", ["example-assets", "example-vendor", "example-html", "example-ts"]);
 
 gulp.task("example-server", ["example"], () => {
     browserSyncServer.init({
