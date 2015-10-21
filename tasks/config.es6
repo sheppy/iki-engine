@@ -27,6 +27,8 @@ export default {
     },
 
     libs: [
-        "pixi.js"
+        "pixi.js",
+        "lodash",
+        "fpsmeter"
     ]
 };

@@ -66,18 +66,6 @@ gulp.task("example-html", () => {
 });
 
 
-// Vendor JS
-gulp.task("example-vendor", () => {
-    return gulp
-        .src([
-            "node_modules/lodash/index.js",
-            "node_modules/pixi.js/bin/pixi.js",
-            "node_modules/fpsmeter/dist/fpsmeter.js"
-        ])
-        .pipe(gulp.dest(config.dir.dist));
-});
-
-
 // Assets
 gulp.task("example-assets", () => {
     return gulp
@@ -89,7 +77,7 @@ gulp.task("example-assets", () => {
 });
 
 // Main example app
-gulp.task("example", ["example-assets", "example-vendor", "example-html", "example-ts"]);
+gulp.task("example", ["vendor", "example-assets", "example-html", "example-ts"]);
 
 gulp.task("example-server", ["example"], () => {
     browserSyncServer.init({
