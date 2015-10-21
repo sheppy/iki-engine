@@ -10,6 +10,9 @@
     },
     "fpsmeter/FPSMeter.d.ts": {
       "commit": "832c51db815c766fa42a2e995a7b3136ec6d15c2"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "68548c2daab053869f323d475419c693478bbb73"
     }
   }
 }

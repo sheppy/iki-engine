@@ -24,6 +24,11 @@ export default class Color {
         return (color.r << 16) + (color.g << 8) + color.b;
     }
 
+    public static intToCss(color: number): string {
+        let css = "000000" + color.toString(16);
+        return "#" + css.substr(-6);
+    }
+
     /**
      * Mix two colours
      */
