@@ -35,7 +35,8 @@ gulp.task("example-ts", () => {
             .plugin(bundleCollapser)
             .bundle((err, res) => {
                 if (err) {
-                    throw err;
+                    console.error(err);
+                    return;
                 }
                 file.contents = res;
                 next(null, file);
@@ -69,6 +70,7 @@ gulp.task("example-html", () => {
 gulp.task("example-vendor", () => {
     return gulp
         .src([
+            "node_modules/lodash/index.js",
             "node_modules/pixi.js/bin/pixi.js",
             "node_modules/fpsmeter/dist/fpsmeter.js"
         ])
