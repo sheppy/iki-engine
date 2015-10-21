@@ -4,7 +4,7 @@ import Tile from "./Tile";
 import Tileset from "./Tileset";
 import {ITiledTileset} from "./Tileset";
 
-interface ITiledMapObject {
+export interface ITiledMapObject {
     x: number;
     y: number;
     width: number;
@@ -13,7 +13,7 @@ interface ITiledMapObject {
     properties: Object;
 }
 
-interface ITiledMapLayer {
+export interface ITiledMapLayer {
     data: number[];
     type: string;
     name: string;
@@ -21,16 +21,17 @@ interface ITiledMapLayer {
     objects: ITiledMapObject[];
 }
 
-interface ITiledMap {
+export interface ITiledMap {
     width: number;
     height: number;
     tilewidth: number;
     tileheight: number;
     layers: ITiledMapLayer[];
     tilesets: ITiledTileset[];
+    properties: Object;
 }
 
-export default class TileMap extends PIXI.Container {
+export class TileMap extends PIXI.Container {
     public mapWidth: number;
     public mapHeight: number;
     public tileSize: number;
@@ -62,6 +63,8 @@ export default class TileMap extends PIXI.Container {
         map.tileset = new Tileset(tiled.tilesets);
         map.tileset.generateTextures();
 
+        map.preCreate(tiled);
+
         for (let i = 0, j = tiled.layers.length; i < j; i++) {
             let layerData = tiled.layers[i];
 
@@ -74,7 +77,7 @@ export default class TileMap extends PIXI.Container {
             }
         }
 
-        map.init();
+        map.postCreate(tiled);
 
         return map;
     }
@@ -133,7 +136,10 @@ export default class TileMap extends PIXI.Container {
         return tiles;
     }
 
-    protected init():void {}
+    protected preCreate(data:ITiledMap):void {}
+    protected postCreate(data:ITiledMap):void {}
 
     protected initTile(tile:Tile):void {}
 }
+
+export default TileMap;

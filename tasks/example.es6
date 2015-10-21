@@ -65,6 +65,14 @@ gulp.task("example-html", () => {
         .pipe(gulp.dest(config.dir.dist));
 });
 
+gulp.task("example-json", () => {
+    return gulp
+        .src([
+            path.join(config.dir.example, "assets", config.glob.json)
+        ])
+        .pipe(gulp.dest(config.dir.dist));
+});
+
 
 // Assets
 gulp.task("example-assets", () => {
@@ -94,4 +102,5 @@ gulp.task("example-server", ["example"], () => {
         path.join(config.dir.src, config.glob.ts)
     ], ["example-ts", browserSyncServer.reload]);
     gulp.watch(path.join(config.dir.example, config.glob.html), ["example-html", browserSyncServer.reload]);
+    gulp.watch(path.join(config.dir.example, config.glob.json), ["example-json", browserSyncServer.reload]);
 });

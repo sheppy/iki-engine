@@ -2,7 +2,7 @@
 import Util from "../Util";
 import Color from "../graphics/Color";
 import Tile from "./Tile";
-import TileMap from "./TileMap";
+import {ITiledMap, TileMap} from "./TileMap";
 import {ITileLight, TileLight} from "./TileLight";
 
 export default class TileMapLighting extends TileMap {
@@ -11,14 +11,6 @@ export default class TileMapLighting extends TileMap {
 
     constructor(width:number, height:number, tileSize:number = 16, ambient?:ITileLight) {
         super(width, height, tileSize);
-
-        // Ambient lighting
-        if (!ambient) {
-            ambient = {
-                color: 0x00ff99,
-                intensity: 0.3
-            };
-        }
 
         this.ambient = ambient;
     }
@@ -35,7 +27,17 @@ export default class TileMapLighting extends TileMap {
         };
     }
 
-    init(): void {
+    preCreate(data:ITiledMap): void {
+        // Set Ambient lighting
+        if (!this.ambient) {
+            this.ambient = {
+                color: data.properties["ambientColor"] || 0x00ff99,
+                intensity: data.properties["ambientIntensity"] || 0.3
+            };
+        }
+    }
+
+    postCreate(data:ITiledMap): void {
         // Add lights from map data
         for (let lightData of this.objects["Lights"]) {
             this.lights.push(new TileLight(lightData.x/lightData["width"], lightData.y/lightData["height"], {
@@ -86,11 +88,24 @@ export default class TileMapLighting extends TileMap {
     }
 
     setTileLighting(tile, color, intensity) {
-            let rgb1 = Color.intToRgb(tile.lighting.color);
-            let rgb2 = Color.intToRgb(color);
+        let rgb1 = Color.intToRgb(tile.lighting.color);
+        let rgb2 = Color.intToRgb(color);
 
         let ratio1 = tile.lighting.intensity / (intensity + tile.lighting.intensity);
         let ratio2 = intensity / (intensity + tile.lighting.intensity);
+
+        //let ratio1 = 1;
+        //let ratio2 = 1;
+        //
+        //if (intensity > tile.lighting.intensity) {
+        //    ratio1 = tile.lighting.intensity / (intensity + tile.lighting.intensity);
+        //    ratio2 = intensity / (intensity + tile.lighting.intensity);
+        //} else {
+        //    ratio1 = tile.lighting.intensity / (intensity + tile.lighting.intensity);
+        //    ratio2 = intensity / (intensity + tile.lighting.intensity);
+        //}
+        //
+        //console.log(ratio1, ratio2);
 
         let r = (rgb1.r * ratio1) + (rgb2.r * ratio2);
         let g = (rgb1.g * ratio1) + (rgb2.g * ratio2);
@@ -98,7 +113,9 @@ export default class TileMapLighting extends TileMap {
 
         let max = Math.max(r, g, b);
 
+
         tile.lighting.intensity = Math.max(intensity, tile.lighting.intensity);
+
 
         if (max > 255) {
             let scale = (255 / max) * tile.lighting.intensity;
