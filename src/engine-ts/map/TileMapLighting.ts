@@ -31,8 +31,8 @@ export default class TileMapLighting extends TileMap {
         // Set Ambient lighting
         if (!this.ambient) {
             this.ambient = {
-                color: data.properties["ambientColor"] || 0x00ff99,
-                intensity: data.properties["ambientIntensity"] || 0.3
+                color: parseInt(data.properties["ambientColor"] || 0x00ff99, 16),
+                intensity: parseFloat(data.properties["ambientIntensity"] || 0.3)
             };
         }
     }
@@ -41,9 +41,9 @@ export default class TileMapLighting extends TileMap {
         // Add lights from map data
         for (let lightData of this.objects["Lights"]) {
             this.lights.push(new TileLight(lightData.x/lightData["width"], lightData.y/lightData["height"], {
-                color: lightData.properties["color"],
-                intensity: lightData.properties["intensity"],
-                radius: lightData.properties["radius"]
+                color: parseInt(lightData.properties["color"], 16),
+                intensity: parseFloat(lightData.properties["intensity"]),
+                radius: parseInt(lightData.properties["radius"], 10)
             }));
         }
 

@@ -93,8 +93,9 @@ gulp.task("example-server", ["example"], () => {
             baseDir: config.dir.dist,
             index: "example.html"
         },
+        ui: false,
         open: false,
-        notify: true
+        notify: false
     });
 
     gulp.watch([
